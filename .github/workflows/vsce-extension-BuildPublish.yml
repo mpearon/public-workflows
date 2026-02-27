@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: phips28/gh-action-bump-version@latest
+      - uses: phips28/gh-action-bump-version@v11
         with:
           skip-tag:  'false'
           GITHUB_USER: ${{ needs.vars.outputs.GITHUB_USER }}
@@ -29,7 +29,7 @@ jobs:
           GITHUB_USER: ${{ env.GITHUB_USER }}
           GITHUB_EMAIL: ${{ env.GITHUB_EMAIL }}
       - run: npm install
-      - uses: lannonbr/vsce-action@latest
+      - uses: lannonbr/vsce-action@v4
         with:
           args: "publish -p $VSCE_TOKEN"
         env:
