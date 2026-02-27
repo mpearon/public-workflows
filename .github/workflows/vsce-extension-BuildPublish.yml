@@ -24,8 +24,8 @@ jobs:
         with:
           skip-tag:  'false'
         env:
-          GITHUB_USER: ${{ needs.vars.outputs.GITHUB_USER }}
-          GITHUB_EMAIL: ${{ needs.vars.outputs.GITHUB_EMAIL }}
+          GITHUB_USER: ${{ env.GITHUB_USER }}
+          GITHUB_EMAIL: ${{ env.GITHUB_EMAIL }}
       - run: npm install
       - uses: lannonbr/vsce-action@4.0.0
         with:
