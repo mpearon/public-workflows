@@ -1,0 +1,33 @@
+name: Deploy vsCode Extension
+on:
+  workflow_call:
+    secrets:
+      VSCE_TOKEN:
+        required: true
+
+jobs:
+  vars:
+    runs-on: ubuntu-latest
+    outputs:
+      GITHUB_USER: ${{ env.GITHUB_USER }}
+      GITHUB_EMAIL: ${{ env.GITHUB_EMAIL }}
+      
+  deploy:
+    needs: vars
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: phips28/gh-action-bump-version@latest
+        with:
+          skip-tag:  'false'
+          GITHUB_USER: ${{ needs.vars.outputs.GITHUB_USER }}
+          GITHUB_EMAIL: ${{ needs.vars.outputs.GITHUB_EMAIL }}
+        env:
+          GITHUB_USER: ${{ env.GITHUB_USER }}
+          GITHUB_EMAIL: ${{ env.GITHUB_EMAIL }}
+      - run: npm install
+      - uses: lannonbr/vsce-action@latest
+        with:
+          args: "publish -p $VSCE_TOKEN"
+        env:
+          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
