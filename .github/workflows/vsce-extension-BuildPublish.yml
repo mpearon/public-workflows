@@ -1,22 +1,19 @@
 name: Deploy vsCode Extension
 on:
   workflow_call:
+    inputs:
+      github_user:
+        type: string
+        required: true
+      github_email:
+        type: string
+        required: true
     secrets:
       VSCE_TOKEN:
         required: true
 
 jobs:
-  vars:
-    runs-on: ubuntu-latest
-    outputs:
-      GITHUB_USER: ${{ env.GH_USER }}
-      GITHUB_EMAIL: ${{ env.GH_EMAIL }}
-    steps:
-      - name: Placeholder step
-        run: echo ""
-      
   deploy:
-    needs: vars
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,8 +21,8 @@ jobs:
         with:
           skip-tag:  'false'
         env:
-          GITHUB_USER: ${{ env.GITHUB_USER }}
-          GITHUB_EMAIL: ${{ env.GITHUB_EMAIL }}
+          GITHUB_USER: ${{ inputs.github_user }}
+          GITHUB_EMAIL: ${{ inputs.github_email }}
       - run: npm install
       - uses: lannonbr/vsce-action@4.0.0
         with:
