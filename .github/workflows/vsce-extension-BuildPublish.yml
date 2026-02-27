@@ -9,8 +9,8 @@ jobs:
   vars:
     runs-on: ubuntu-latest
     outputs:
-      GITHUB_USER: ${{ env.GITHUB_USER }}
-      GITHUB_EMAIL: ${{ env.GITHUB_EMAIL }}
+      GITHUB_USER: ${{ env.GH_USER }}
+      GITHUB_EMAIL: ${{ env.GH_EMAIL }}
       
   deploy:
     needs: vars
