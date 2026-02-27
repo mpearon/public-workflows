@@ -11,6 +11,9 @@ jobs:
     outputs:
       GITHUB_USER: ${{ env.GH_USER }}
       GITHUB_EMAIL: ${{ env.GH_EMAIL }}
+    steps:
+      - name: Placeholder step
+        run: echo ""
       
   deploy:
     needs: vars
